@@ -1,0 +1,35 @@
+-- Meh i dont obfuscate it, its from V3rmillion
+local player = game.Players.LocalPlayer
+local gui = Instance.new("ScreenGui")
+
+-- Choose either StarterPlayerScripts or StarterCharacterScripts as the parent gui.Parent = game:GetService("StarterPlayerScripts") -- or game:GetService("StarterCharacterScripts") 
+
+
+local toggleButton = Instance.new("TextButton")
+toggleButton.Text = "Toggle Gui"
+toggleButton.Size = UDim2.new(0, 100, 0, 30)
+toggleButton.Position = UDim2.new(0.921914339, 0, 0.552375436, 0)
+toggleButton.Parent = gui
+
+local db = true
+
+-- Function to toggle the lag
+function ToggleLag()
+    if db == true then
+        pcall(function()
+            db = false
+            settings():GetService("NetworkSettings").IncomingReplicationLag = math.huge
+            toggleButton.Text = "Off"
+        end)
+    else
+        pcall(function()
+            db = true
+            settings():GetService("NetworkSettings").IncomingReplicationLag = 0
+            toggleButton.Text = "On"
+        end)
+    end
+end
+
+toggleButton.MouseButton1Click:Connect(function()
+    ToggleLag()
+end)
